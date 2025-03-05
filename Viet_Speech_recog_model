@@ -6,6 +6,10 @@ import torchaudio.transforms as T
 from torch.utils.data import DataLoader
 from datasets import load_dataset, Audio
 
+# import os
+# os.environ["HF_DATASETS_CACHE"] = "D:/huggingface_cache"
+# Use this in case of C: is out if memory
+
 # 1. Load the Dataset from Hugging Face
 print("Loading dataset...")
 # Load the dataset (train split)
