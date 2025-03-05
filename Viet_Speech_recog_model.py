@@ -8,7 +8,7 @@ from datasets import load_dataset, Audio
 
 # import os
 # os.environ["HF_DATASETS_CACHE"] = "D:/huggingface_cache"
-# Use this in case of C: is out if memory
+# Use this in case of C: is out of memory
 
 # 1. Load the Dataset from Hugging Face
 print("Loading dataset...")
