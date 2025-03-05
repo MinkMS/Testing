@@ -6,10 +6,7 @@ import torchaudio.transforms as T
 from torch.utils.data import DataLoader
 from datasets import load_dataset, Audio
 
-########################################
 # 1. Load the Dataset from Hugging Face
-########################################
-
 print("Loading dataset...")
 # Load the dataset (train split)
 dataset = load_dataset("doof-ferb/vlsp2020_vinai_100h", split="train")
@@ -20,10 +17,7 @@ dataset = dataset.cast_column("audio", Audio(sampling_rate=16000))
 transcript_key = [key for key in dataset.features.keys() if key != "audio"][0]
 print(f"Detected transcription key: {transcript_key}")
 
-########################################
 # 2. Preprocess the Audio
-########################################
-
 def preprocess_audio(example):
     # Convert the raw audio array to a float32 tensor
     speech_array = torch.tensor(example["audio"]["array"], dtype=torch.float32)
@@ -45,10 +39,7 @@ def preprocess_audio(example):
 print("Preprocessing audio...")
 dataset = dataset.map(preprocess_audio)
 
-########################################
 # 3. Build the Vocabulary from Transcriptions
-########################################
-
 def build_vocab(dataset, transcript_key):
     vocab_set = set()
     for sample in dataset:
@@ -65,10 +56,7 @@ vocab, char2idx, idx2char = build_vocab(dataset, transcript_key)
 num_classes = len(vocab)
 print("Number of classes (including blank):", num_classes)
 
-########################################
 # 4. Create a Collate Function for the DataLoader
-########################################
-
 def collate_fn(batch):
     mel_specs_list = []
     transcripts = []
@@ -98,10 +86,7 @@ def collate_fn(batch):
 
 train_loader = DataLoader(dataset, batch_size=16, shuffle=True, collate_fn=collate_fn)
 
-########################################
 # 5. Define the CRNN Model (CNN + LSTM + FC with CTC Loss)
-########################################
-
 class CRNN(nn.Module):
     def __init__(self, num_classes):
         super(CRNN, self).__init__()
@@ -137,18 +122,14 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
 model = CRNN(num_classes).to(device)
 
-########################################
 # 6. Set Up Training Components
-########################################
-
 ctc_loss = nn.CTCLoss(blank=0, zero_infinity=True)
 optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
-########################################
 # 7. Training Loop
-########################################
 
 num_epochs = 10
+
 print("Starting training...")
 for epoch in range(num_epochs):
     model.train()
