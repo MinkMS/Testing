@@ -37,7 +37,7 @@ def merge_pdfs():
         return
 
     # Ask for the output filename (without .pdf). simpledialog returns None if cancelled.
-    output_file = simpledialog.askstring("Tên file xuất ra", "Nhập tên file PDF xuất ra (không cần .pdf):")
+    output_file = simpledialog.askstring("Tên file xuất ra", "Nhập tên file PDF xuất ra (không cần đuôi .pdf):")
     if not output_file:
         messagebox.showinfo("Thông báo", "Bạn chưa nhập tên file xuất ra!")
         return
