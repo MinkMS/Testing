@@ -2,20 +2,20 @@ import tkinter as tk
 from tkinter import filedialog, simpledialog, messagebox
 from PyPDF2 import PdfMerger
 
-# Simple GUI PDF merger.
-# - Opens file dialog to select multiple PDFs
-# - Asks for an output filename
-# - Merges selected PDFs into the output file
-# Notes / suggestions:
-# - Requires PyPDF2 installed: pip install PyPDF2
-# - Running this script will show GUI dialogs (no main window displayed)
-# - Consider adding validation for overwriting existing files or choosing output path
-# - For large PDFs or many files, consider using streaming/temporary files to reduce memory
-
+"""
+Simple GUI PDF merger.
+- Opens file dialog to select multiple PDFs
+- Asks for an output filename
+- Merges selected PDFs into the output file
+Notes / suggestions:
+- Requires PyPDF2 installed: pip install PyPDF2
+- Running this script will show GUI dialogs (no main window displayed)
+- Consider adding validation for overwriting existing files or choosing output path
+- For large PDFs or many files, consider using streaming/temporary files to reduce memory usage
+"""
 
 def merge_pdfs():
     """Open dialogs to pick PDFs and merge them into a single output PDF.
-
     Uses tkinter dialogs:
     - filedialog.askopenfilenames for input selection
     - simpledialog.askstring for output filename
